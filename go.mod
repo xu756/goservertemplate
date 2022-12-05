@@ -1,3 +1,3 @@
 module server
 
-go 1.19s
+go 1.19
