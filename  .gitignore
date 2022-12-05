@@ -1,1 +1,14 @@
-.idea/
+.idea
+*iml
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.exe
+/tmp
+logs
+media
+config.json
+*.db
