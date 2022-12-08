@@ -12,5 +12,5 @@ func main() {
 			"message": "pong",
 		})
 	})
-	router.Run(":8888")
+	router.Run(":5986")
 }
