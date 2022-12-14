@@ -2,9 +2,10 @@ package router
 
 import (
 	"errors"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
-	"time"
 )
 
 var MySecret = []byte("123456") // 定义secret，后面会用到
