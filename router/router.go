@@ -1,14 +1,14 @@
 package router
 
-import (
-	"github.com/labstack/echo"
-)
+import "github.com/gin-gonic/gin"
 
 func InItRouter() {
-	router := echo.New()
+	router := gin.Default()
 	r := router.Group("/api/v1")
-	r.GET("/index", func(c echo.Context) error {
-		return c.JSON(200, router.Routes())
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
 	})
-	router.Logger.Fatal(router.Start(":5986"))
+	router.Run(":5986")
 }
