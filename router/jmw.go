@@ -32,7 +32,7 @@ func MakeToken(Username string, Id, Role int, Ip string) (tokenString string, er
 }
 func Secret() jwt.Keyfunc {
 	return func(token *jwt.Token) (interface{}, error) {
-		return []byte("手写的从前"), nil // 这是我的secret
+		return MySecret, nil // 这是我的secret
 	}
 }
 
