@@ -18,14 +18,11 @@ func Res(code int, msg string, data interface{}) *Response {
 
 func SuccessRes(c *app.RequestContext, msg string, data interface{}) {
 	c.JSON(200, Res(200, msg, data))
-	c.Abort()
 }
 func WarnRes(c *app.RequestContext, msg string, data interface{}) {
 	c.JSON(300, Res(400, msg, data))
-	c.Abort()
 
 }
 func ErrorRes(c *app.RequestContext, msg string, data interface{}) {
 	c.JSON(400, Res(300, msg, data))
-	c.Abort()
 }
