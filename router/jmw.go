@@ -4,7 +4,6 @@ import (
 	"errors"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 )
 
@@ -59,29 +58,29 @@ func ParseToken(tokens string) (*MyClaims, error) {
 	return nil, errors.New("这个token不是一个有效的token3")
 }
 
-// 中间件jwt
-func JWT() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if c.Request.URL.Path == "/api/v1/" {
-			token, _ := MakeToken("admin", 1, 1, "127.0.0.1")
-			c.Set("jwt", token)
-			c.Next()
-			return
-		}
-		token := c.Request.Header.Get("token")
-		if token == "" {
-			c.JSON(200, gin.H{"code": 400, "msg": "token为空"})
-			c.Abort()
-			return
-		} else {
-			claims, err := ParseToken(token) // 解析token
-			if err != nil {
-				c.JSON(200, gin.H{"code": 400, "msg": err.Error()})
-				c.Abort()
-				return
-			}
-			c.Set("jwt", claims)
-			c.Next()
-		}
-	}
-}
+//// 中间件jwt
+//func JWT() gin.HandlerFunc {
+//	return func(c *gin.Context) {
+//		if c.Request.URL.Path == "/api/v1/" {
+//			token, _ := MakeToken("admin", 1, 1, "127.0.0.1")
+//			c.Set("jwt", token)
+//			c.Next()
+//			return
+//		}
+//		token := c.Request.Header.Get("token")
+//		if token == "" {
+//			c.JSON(200, gin.H{"code": 400, "msg": "token为空"})
+//			c.Abort()
+//			return
+//		} else {
+//			claims, err := ParseToken(token) // 解析token
+//			if err != nil {
+//				c.JSON(200, gin.H{"code": 400, "msg": err.Error()})
+//				c.Abort()
+//				return
+//			}
+//			c.Set("jwt", claims)
+//			c.Next()
+//		}
+//	}
+//}
