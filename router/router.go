@@ -1,30 +1,22 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
+	"context"
+	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/cloudwego/hertz/pkg/common/utils"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"log"
 )
 
-func InItRouter() {
-	router := gin.Default()
-	router.Use(JWT())
-	r := router.Group("/api/v1")
-	r.GET("/", func(c *gin.Context) {
-		m, _ := c.Get("jwt")
-		c.Header("token", m.(string))
-		M, err := ParseToken(m.(string))
-		if err != nil {
-			c.JSON(200, gin.H{
-				"code": 400,
-				"msg":  err.Error(),
-			})
-			return
-		}
-
-		c.JSON(200, gin.H{
-			"code": 200,
-			"msg":  "成功",
-			"data": M,
+func InitRouter() {
+	h := server.Default(server.WithHostPorts("0.0.0.0:5986"))
+	router := h.Group("/api/")
+	router.GET("/ping", func(c context.Context, ctx *app.RequestContext) {
+		log.Print("ping")
+		ctx.JSON(consts.StatusOK, utils.H{
+			"message": "pong",
 		})
 	})
-	router.Run(":5986")
+	h.Spin()
 }
