@@ -44,10 +44,9 @@ type NewTable struct {
 	Name  string
 }
 
-func SqliteCreateTable(Name string, Table interface{}) error {
+func SqliteCreateTable(Name string, Table interface{}) {
 	err := GetSqlitedb().AutoMigrate(Table)
 	if err != nil {
 		fmt.Printf("sqlite创建 %s 表失败!!!", Name)
 	}
-	return err
 }
