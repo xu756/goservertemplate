@@ -7,6 +7,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"log"
+	"server/app/system"
 	"server/app/user"
 )
 
@@ -19,5 +20,6 @@ func InitRouter() {
 		})
 	})
 	user.UserRouter(h.Group("/api/user/"))
+	system.SystemRouter(h.Group("/api/system/"))
 	h.Spin()
 }
