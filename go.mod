@@ -5,7 +5,9 @@ go 1.19
 require (
 	github.com/cloudwego/hertz v0.4.2
 	github.com/golang-jwt/jwt/v4 v4.4.3
+	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/datatypes v1.1.0
+	gorm.io/driver/mysql v1.4.4
 	gorm.io/driver/sqlite v1.4.3
 	gorm.io/gorm v1.24.2
 )
@@ -35,5 +37,4 @@ require (
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
 	golang.org/x/sys v0.3.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
-	gorm.io/driver/mysql v1.4.4 // indirect
 )
