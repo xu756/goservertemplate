@@ -26,7 +26,7 @@ func InitsqLite() {
 func GetSqlitedb() *gorm.DB {
 	sqlDB, err := SqliteDB.DB()
 	if err != nil {
-		log.Print("connect db server failed.")
+		log.Print("连接错误")
 		InitsqLite()
 	}
 	if err := sqlDB.Ping(); err != nil {
@@ -44,9 +44,6 @@ type NewTable struct {
 	Name  string
 }
 
-func SqliteCreateTable(Name string, Table interface{}) {
-	err := GetSqlitedb().AutoMigrate(Table)
-	if err != nil {
-		fmt.Printf("sqlite创建 %s 表失败!!!", Name)
-	}
+func SqliteCreateTable(Table ...interface{}) error {
+	return GetSqlitedb().AutoMigrate(Table...)
 }
