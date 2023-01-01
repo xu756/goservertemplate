@@ -3,7 +3,7 @@ package main
 import (
 	"server/common/config"
 	"server/common/model"
-	"server/router"
+	"server/common/router"
 )
 
 func main() {
