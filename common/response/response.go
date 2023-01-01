@@ -13,12 +13,6 @@ type Response struct {
 	Data interface{} `json:"data"`
 }
 
-var codes = map[int]string{
-	200: "成功",
-	300: "警告",
-	400: "错误",
-}
-
 func Res(c *app.RequestContext, code int, msg string, data interface{}) *Response {
 	go func() {
 		model.GetSqlitedb().Create(&logs.Logs{
