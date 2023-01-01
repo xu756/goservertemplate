@@ -1,9 +1,9 @@
 package system
 
 import (
-	"github.com/cloudwego/hertz/pkg/route"
+	"github.com/gin-gonic/gin"
 )
 
-func SystemRouter(system *route.RouterGroup) {
+func SystemRouter(system *gin.RouterGroup) {
 	system.GET("reset", Reset)
 }

@@ -1,9 +1,9 @@
 package user
 
 import (
-	"github.com/cloudwego/hertz/pkg/route"
+	"github.com/gin-gonic/gin"
 )
 
-func UserRouter(user *route.RouterGroup) {
+func UserRouter(user *gin.RouterGroup) {
 	user.POST("login", Login)
 }

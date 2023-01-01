@@ -1,7 +1,7 @@
 package response
 
 import (
-	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/gin-gonic/gin"
 	"server/common/logs"
 	"server/common/method"
 	"server/common/model"
@@ -13,16 +13,16 @@ type Response struct {
 	Data interface{} `json:"data"`
 }
 
-func Res(c *app.RequestContext, code int, msg string, data interface{}) *Response {
+func Res(c *gin.Context, code int, msg string, data interface{}) *Response {
 	go func() {
 		model.GetSqlitedb().Create(&logs.Logs{
-			Username: string(c.Request.Host()),
+			Username: "admin",
 			Ip:       c.ClientIP(),
 			Code:     code,
 			Type:     codes[code],
 			Msg:      msg,
 			Data:     method.GoBytes(data),
-			Url:      string(c.Request.URI().PathOriginal()),
+			Url:      c.Request.URL.Path,
 		})
 
 	}()
@@ -33,13 +33,13 @@ func Res(c *app.RequestContext, code int, msg string, data interface{}) *Respons
 	}
 }
 
-func SuccessRes(c *app.RequestContext, msg string, data interface{}) {
+func SuccessRes(c *gin.Context, msg string, data interface{}) {
 	c.JSON(200, Res(c, 200, msg, data))
 }
-func WarnRes(c *app.RequestContext, msg string, data interface{}) {
+func WarnRes(c *gin.Context, msg string, data interface{}) {
 	c.JSON(300, Res(c, 400, msg, data))
 
 }
-func ErrorRes(c *app.RequestContext, msg string, data interface{}) {
+func ErrorRes(c *gin.Context, msg string, data interface{}) {
 	c.JSON(400, Res(c, 300, msg, data))
 }
