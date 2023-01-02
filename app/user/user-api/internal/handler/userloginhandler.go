@@ -1,10 +1,11 @@
 package handler
 
 import (
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"goservertemplate/app/user/user-api/internal/logic"
 	"goservertemplate/app/user/user-api/internal/svc"
 	"goservertemplate/app/user/user-api/internal/types"
-	"greet/response" // ①
+	"goservertemplate/common/response"
 	"net/http"
 )
 

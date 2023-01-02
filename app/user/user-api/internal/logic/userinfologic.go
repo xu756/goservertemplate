@@ -24,7 +24,8 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserInfo
 }
 
 func (l *UserInfoLogic) UserInfo() (resp *types.UserInfo, err error) {
-	// todo: add your logic here and delete this line
 
-	return
+	return &types.UserInfo{
+		Username: l.ctx.Value("username").(string),
+	}, nil
 }

@@ -3,7 +3,7 @@ package handler
 import (
 	"goservertemplate/app/user/user-api/internal/logic"
 	"goservertemplate/app/user/user-api/internal/svc"
-	"greet/response" // ①
+	"goservertemplate/common/response"
 	"net/http"
 )
 

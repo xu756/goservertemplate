@@ -3,11 +3,10 @@ package logic
 import (
 	"context"
 	"github.com/golang-jwt/jwt/v4"
-
+	"github.com/zeromicro/go-zero/core/logx"
 	"goservertemplate/app/user/user-api/internal/svc"
 	"goservertemplate/app/user/user-api/internal/types"
-
-	"github.com/zeromicro/go-zero/core/logx"
+	"time"
 )
 
 type UserLoginLogic struct {
@@ -23,19 +22,19 @@ func NewUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLog
 		svcCtx: svcCtx,
 	}
 }
-func (l *UserLoginLogic) getJwtToken(secretKey string, iat int64, seconds int64, username string) (string, error) {
+func (l *UserLoginLogic) getJwtToken(username string) (string, error) {
 	claims := make(jwt.MapClaims)
-	claims["exp"] = iat + seconds
-	claims["iat"] = iat
-	claims["user"] = username
+	var now = time.Now().Unix()
+	claims["exp"] = now + l.svcCtx.Config.Auth.AccessExpire
+	claims["iat"] = now
+	claims["username"] = username
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
-	return token.SignedString([]byte(secretKey))
+	return token.SignedString([]byte(l.svcCtx.Config.Auth.AccessSecret))
 }
 func (l *UserLoginLogic) UserLogin(req *types.UserLogin) (resp *types.UserLoginres, err error) {
-	// todo: add your logic here and delete this line
-
+	token, _ := l.getJwtToken("xu756")
 	return &types.UserLoginres{
-		Token: "token",
+		Token: token,
 	}, nil
 }
