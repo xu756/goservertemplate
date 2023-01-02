@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="本地mysql" uuid="a5bc7719-4b6a-4da1-8c8d-78f457617036">
+    <data-source source="LOCAL" name="本地数据库" uuid="5a05ecc0-b13e-458b-bf46-b176674049cb">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="日志数据库" uuid="c560b81b-baab-4e4c-8323-a253c4b8ad39">
-      <driver-ref>sqlite.xerial</driver-ref>
+    <data-source source="LOCAL" name="本地redis" uuid="f6e76f1c-c388-44c2-953f-b37ab85c437e">
+      <driver-ref>redis</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/logs.db</jdbc-url>
+      <jdbc-driver>jdbc.RedisDriver</jdbc-driver>
+      <jdbc-url>jdbc:redis://localhost:6379/0</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

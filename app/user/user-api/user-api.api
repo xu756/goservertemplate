@@ -1,0 +1,41 @@
+syntax = "v1"
+
+info(
+    title: "用户api"
+    desc: "用户相关api"
+    author: "xu756"
+    email: "756334744@qq.com"
+    version: "v1"
+)
+
+type (
+    userLogin {
+        Username string `json:"username"`
+        Password string `json:"password"`
+    }
+    userLoginres {
+        Token string `json:"token"`
+    }
+    userInfo {
+        Username string `json:"username"`
+        Password string `json:"password"`
+    }
+)
+@server(
+    prefix: api/user/v1
+)
+service user-api {
+    @doc "用户登录"
+    @handler userLogin
+    post /login (userLogin) returns (userLoginres)
+}
+
+@server(
+    prefix: api/user/v1
+    jwt: Auth
+)
+service user-api {
+    @doc "用户信息"
+    @handler userInfo
+    get /info returns (userInfo)
+}
