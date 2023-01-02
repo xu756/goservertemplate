@@ -1,3 +1,4 @@
-/tmp/
+*.exe
+*.log
 /logs.db
 /.idea/
