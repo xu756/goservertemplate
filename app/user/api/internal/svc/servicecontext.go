@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"goservertemplate/app/user/user-api/internal/config"
+	"goservertemplate/app/user/api/internal/config"
 )
 
 type ServiceContext struct {

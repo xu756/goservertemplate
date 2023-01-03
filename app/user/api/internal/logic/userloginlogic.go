@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/zeromicro/go-zero/core/logx"
-	"goservertemplate/app/user/user-api/internal/svc"
-	"goservertemplate/app/user/user-api/internal/types"
+	"goservertemplate/app/user/api/internal/svc"
+	"goservertemplate/app/user/api/internal/types"
 	"time"
 )
 
