@@ -19,8 +19,8 @@ import (
 var (
 	userFieldNames          = builder.RawFieldNames(&User{})
 	userRows                = strings.Join(userFieldNames, ",")
-	userRowsExpectAutoSet   = strings.Join(stringx.Remove(userFieldNames, "`id`", "`update_at`", "`updated_at`", "`update_time`", "`create_at`", "`created_at`", "`create_time`"), ",")
-	userRowsWithPlaceHolder = strings.Join(stringx.Remove(userFieldNames, "`id`", "`update_at`", "`updated_at`", "`update_time`", "`create_at`", "`created_at`", "`create_time`"), "=?,") + "=?"
+	userRowsExpectAutoSet   = strings.Join(stringx.Remove(userFieldNames, "`id`", "`updated_at`", "`update_time`", "`create_at`", "`created_at`", "`create_time`", "`update_at`"), ",")
+	userRowsWithPlaceHolder = strings.Join(stringx.Remove(userFieldNames, "`id`", "`updated_at`", "`update_time`", "`create_at`", "`created_at`", "`create_time`", "`update_at`"), "=?,") + "=?"
 
 	cacheUserIdPrefix = "cache:user:id:"
 )
@@ -39,11 +39,12 @@ type (
 	}
 
 	User struct {
-		Id         int64     `db:"id"`         // 用户id
-		Username   string    `db:"username"`   // 用户名
-		Password   string    `db:"password"`   // 用户密码
-		CreateTime time.Time `db:"createTime"` // 创建时间
-		UpdateTime time.Time `db:"updateTime"` // 更新时间
+		Id         int64          `db:"id"`         // 用户id
+		Username   string         `db:"username"`   // 用户名
+		Password   string         `db:"password"`   // 用户密码
+		CreateTime time.Time      `db:"createTime"` // 创建时间
+		UpdateTime time.Time      `db:"updateTime"` // 更新时间
+		Token      sql.NullString `db:"token"`      // token
 	}
 )
 
@@ -83,8 +84,8 @@ func (m *defaultUserModel) FindOne(ctx context.Context, id int64) (*User, error)
 func (m *defaultUserModel) Insert(ctx context.Context, data *User) (sql.Result, error) {
 	userIdKey := fmt.Sprintf("%s%v", cacheUserIdPrefix, data.Id)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?)", m.table, userRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.Username, data.Password, data.CreateTime, data.UpdateTime)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?)", m.table, userRowsExpectAutoSet)
+		return conn.ExecCtx(ctx, query, data.Username, data.Password, data.CreateTime, data.UpdateTime, data.Token)
 	}, userIdKey)
 	return ret, err
 }
@@ -93,7 +94,7 @@ func (m *defaultUserModel) Update(ctx context.Context, data *User) error {
 	userIdKey := fmt.Sprintf("%s%v", cacheUserIdPrefix, data.Id)
 	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, userRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, data.Username, data.Password, data.CreateTime, data.UpdateTime, data.Id)
+		return conn.ExecCtx(ctx, query, data.Username, data.Password, data.CreateTime, data.UpdateTime, data.Token, data.Id)
 	}, userIdKey)
 	return err
 }

@@ -4,5 +4,7 @@ CREATE TABLE `user` (
                         `password` varchar(128) NOT NULL COMMENT '用户密码',
                         `createTime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                         `updateTime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                        `token` varchar(128) DEFAULT NULL COMMENT 'token',
                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表'
+
