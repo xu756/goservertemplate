@@ -1,41 +1,41 @@
 syntax = "v1"
 
 info(
-    title: "用户api"
-    desc: "用户相关api"
-    author: "xu756"
-    email: "756334744@qq.com"
-    version: "v1"
+	title: "用户api"
+	desc: "用户相关api"
+	author: "xu756"
+	email: "756334744@qq.com"
+	version: "v1"
 )
 
 type (
-    userLogin {
-        Username string `json:"username"`
-        Password string `json:"password"`
-    }
-    userLoginres {
-        Token string `json:"token"`
-    }
-    userInfo {
-        Username string `json:"username"`
-        Password string `json:"password"`
-    }
+	Login {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	Loginres {
+		Token string `json:"token"`
+	}
+	Info {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
 )
 @server(
-    prefix: api/user/v1
+	prefix: api/user/v1
 )
 service user-api {
-    @doc "用户登录"
-    @handler userLogin
-    post /login (userLogin) returns (userLoginres)
+	@doc "用户登录"
+	@handler Login
+	post /login (Login) returns (Loginres)
 }
 
 @server(
-    prefix: api/user/v1
-    jwt: Auth
+	prefix: api/user/v1
+	jwt: Auth
 )
 service user-api {
-    @doc "用户信息"
-    @handler userInfo
-    get /info returns (userInfo)
+	@doc "用户信息"
+	@handler Info
+	get /info returns (Info)
 }

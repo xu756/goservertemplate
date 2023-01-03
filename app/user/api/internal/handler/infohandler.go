@@ -7,11 +7,11 @@ import (
 	"net/http"
 )
 
-func userInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func InfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		l := logic.NewUserInfoLogic(r.Context(), svcCtx)
-		resp, err := l.UserInfo()
+		l := logic.NewInfoLogic(r.Context(), svcCtx)
+		resp, err := l.Info()
 		response.Response(w, resp, err)
 
 	}

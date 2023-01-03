@@ -12,10 +12,3 @@ func NewCodeError(code int, msg string) *CodeError {
 func (e *CodeError) Error() string {
 	return e.Msg
 }
-
-func (e *CodeError) Data() *CodeError {
-	return &CodeError{
-		Code: e.Code,
-		Msg:  e.Msg,
-	}
-}

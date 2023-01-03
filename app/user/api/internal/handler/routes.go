@@ -15,7 +15,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/login",
-				Handler: userLoginHandler(serverCtx),
+				Handler: LoginHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/api/user/v1"),
@@ -26,7 +26,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodGet,
 				Path:    "/info",
-				Handler: userInfoHandler(serverCtx),
+				Handler: InfoHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
