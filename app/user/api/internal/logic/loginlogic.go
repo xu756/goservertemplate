@@ -2,12 +2,10 @@ package logic
 
 import (
 	"context"
-	"github.com/golang-jwt/jwt/v4"
-	"goservertemplate/common/errorx"
-	"time"
-
 	"goservertemplate/app/user/api/internal/svc"
 	"goservertemplate/app/user/api/internal/types"
+	"goservertemplate/app/user/rpc/user"
+	"goservertemplate/common/errorx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -25,20 +23,15 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 		svcCtx: svcCtx,
 	}
 }
-
-func (l *LoginLogic) getJwtToken(username string) (string, error) {
-	claims := make(jwt.MapClaims)
-	var now = time.Now().Unix()
-	claims["exp"] = now + l.svcCtx.Config.Auth.AccessExpire
-	claims["iat"] = now
-	claims["username"] = username
-	token := jwt.New(jwt.SigningMethodHS256)
-	token.Claims = claims
-	return token.SignedString([]byte(l.svcCtx.Config.Auth.AccessSecret))
-}
 func (l *LoginLogic) Login(req *types.Login) (resp *types.Loginres, err *errorx.CodeError) {
-	token, _ := l.getJwtToken("xu756")
+	res, err2 := l.svcCtx.UserRpc.Login(l.ctx, &user.User{
+		Username: req.Username,
+		Password: req.Password,
+	})
+	if err2 != nil {
+		return nil, nil
+	}
 	return &types.Loginres{
-		Token: token,
+		Token: res.Token,
 	}, nil
 }
