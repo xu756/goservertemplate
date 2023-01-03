@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"goservertemplate/common/errorx"
 
 	"goservertemplate/app/user/api/internal/svc"
 	"goservertemplate/app/user/api/internal/types"
@@ -23,9 +24,9 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserInfo
 	}
 }
 
-func (l *UserInfoLogic) UserInfo() (resp *types.UserInfo, err error) {
+func (l *UserInfoLogic) UserInfo() (resp *types.UserInfo, err *errorx.CodeError) {
 
 	return &types.UserInfo{
 		Username: l.ctx.Value("username").(string),
-	}, nil
+	}, errorx.NewCodeError(1001, "test")
 }

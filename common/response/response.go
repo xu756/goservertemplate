@@ -1,6 +1,7 @@
 package response
 
 import (
+	"goservertemplate/common/errorx"
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -12,10 +13,10 @@ type Body struct {
 	Data interface{} `json:"data,omitempty"`
 }
 
-func Response(w http.ResponseWriter, resp interface{}, err error) {
+func Response(w http.ResponseWriter, resp interface{}, err *errorx.CodeError) {
 	var body Body
 	if err != nil {
-		body.Code = -1
+		body.Code = err.Code
 		body.Msg = err.Error()
 	} else {
 		body.Msg = "OK"

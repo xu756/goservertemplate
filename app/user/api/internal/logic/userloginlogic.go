@@ -6,6 +6,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"goservertemplate/app/user/api/internal/svc"
 	"goservertemplate/app/user/api/internal/types"
+	"goservertemplate/common/errorx"
 	"time"
 )
 
@@ -32,7 +33,7 @@ func (l *UserLoginLogic) getJwtToken(username string) (string, error) {
 	token.Claims = claims
 	return token.SignedString([]byte(l.svcCtx.Config.Auth.AccessSecret))
 }
-func (l *UserLoginLogic) UserLogin(req *types.UserLogin) (resp *types.UserLoginres, err error) {
+func (l *UserLoginLogic) UserLogin(req *types.UserLogin) (resp *types.UserLoginres, err *errorx.CodeError) {
 	token, _ := l.getJwtToken("xu756")
 	return &types.UserLoginres{
 		Token: token,

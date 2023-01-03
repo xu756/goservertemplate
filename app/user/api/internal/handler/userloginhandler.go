@@ -19,7 +19,7 @@ func userLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 
 		l := logic.NewUserLoginLogic(r.Context(), svcCtx)
 		resp, err := l.UserLogin(&req)
-		response.Response(w, resp, err) //②
+		response.Response(w, resp, err)
 
 	}
 }
